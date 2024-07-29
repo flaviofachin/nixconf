@@ -91,7 +91,7 @@ in rec {
     in (extendModule ((extension name) // {path = f;})))
     modules;
 magicDirs = dirs: 
-    map
+    genAttrs dirs
     (dir:
       myLib.extendModules
         (name: {
@@ -101,8 +101,9 @@ magicDirs = dirs:
 
           configExtension = config: (lib.mkIf cfg.${name}.enable config);
       })
-    (myLib.filesIn ./features);)
-    dirs;
+    (myLib.filesIn ./features);
+);
+
   # ============================ Shell ============================= #
   forAllSystems = pkgs:
     inputs.nixpkgs.lib.genAttrs [

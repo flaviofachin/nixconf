@@ -90,7 +90,19 @@ in rec {
       name = fileNameOf f;
     in (extendModule ((extension name) // {path = f;})))
     modules;
+magicDirs = dirs: 
+    map
+    (dir:
+      myLib.extendModules
+        (name: {
+          extraOptions = {
+            myNixOS.${dir}.enable = lib.mkEnableOption "enable my ${dir} configuration";
+          };
 
+          configExtension = config: (lib.mkIf cfg.${name}.enable config);
+      })
+    (myLib.filesIn ./features);)
+    dirs;
   # ============================ Shell ============================= #
   forAllSystems = pkgs:
     inputs.nixpkgs.lib.genAttrs [

@@ -84,13 +84,13 @@
       homeConfigurations = {
         # ================ Maintained home configurations ================ #
 
-        "yurii@laptop" = mkHome "x86_64-linux" ./hosts/laptop/home.nix;
-        "yurii@work" = mkHome "x86_64-linux" ./hosts/work/home.nix;
+        "shemuel@laptop" = mkHome "x86_64-linux" ./hosts/laptop/home.nix;
+        "shemuel@work" = mkHome "x86_64-linux" ./hosts/work/home.nix;
 
         # ========================= Discontinued ========================= #
         # This one doesn't work. Left it in case I ever want to use it again
 
-        "yurii@osxvm" = mkHome "x86_64-darwin" ./hosts/osxvm/home.nix;
+        "shemuel@osxvm" = mkHome "x86_64-darwin" ./hosts/osxvm/home.nix;
       };
 
       homeManagerModules.default = ./homeManagerModules;

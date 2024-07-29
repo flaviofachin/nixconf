@@ -101,7 +101,7 @@ magicDirs = dirs:
 
           configExtension = config: (lib.mkIf cfg.${name}.enable config);
       })
-    (myLib.filesIn ./features);
+    (myLib.filesIn ./${dir});
 );
 
   # ============================ Shell ============================= #

@@ -104,6 +104,21 @@ magicDirs = dirs:
     (myLib.filesIn ./${dir});
 );
 
+mkApp = name: dependOn:    # Args es:  bakup [restic sops nettools]
+      let
+        newApp = name: script: {
+          type = "app";
+          program = toString (pkgs.writeShellScript "${name}.sh" script);
+        };
+      in {
+        ${name} = newApp name ''
+          PATH=${
+              with pkgs; lib.makeBinPath dependOn
+          }
+          ${pkgs.lib.fileContents ./scripts/${name}.sh}
+        '';
+
+
   # ============================ Shell ============================= #
   forAllSystems = pkgs:
     inputs.nixpkgs.lib.genAttrs [

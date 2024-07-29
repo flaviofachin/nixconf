@@ -1,0 +1,18 @@
+{config, lib, ...}:
+
+{
+  # Israel time zone
+    time.timeZone = "Asia/Jerusalem";
+    i18n.defaultLocale = "en_US.UTF-8";
+    i18n.extraLocaleSettings = {
+      LC_ADDRESS = "en_IL.UTF-8";
+      LC_IDENTIFICATION = "en_IL.UTF-8";
+      LC_MEASUREMENT = "en_IL.UTF-8";
+      LC_MONETARY = "he_IL.UTF-8";
+      LC_NAME = "en_IL.UTF-8";
+      LC_NUMERIC = "en_IL.UTF-8";
+      LC_PAPER = "en_IL.UTF-8";
+      LC_TELEPHONE = "en_IL.UTF-8";
+      LC_TIME = "he_IL.UTF-8";
+    };
+}

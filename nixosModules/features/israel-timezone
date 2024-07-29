@@ -1,18 +1,21 @@
-{config, lib, ...}:
-
+{config, lib, ...}: let
+   fstOpt= "en_IL.UTF-8";
+   sdnOpt= "eh_IL.UTF-8";
+   trdOpt= "en_US.UTF-8";
+in
 {
   # Israel time zone
     time.timeZone = "Asia/Jerusalem";
-    i18n.defaultLocale = "en_US.UTF-8";
+    i18n.defaultLocale = trdOpt;
     i18n.extraLocaleSettings = {
-      LC_ADDRESS = "en_IL.UTF-8";
-      LC_IDENTIFICATION = "en_IL.UTF-8";
-      LC_MEASUREMENT = "en_IL.UTF-8";
-      LC_MONETARY = "he_IL.UTF-8";
-      LC_NAME = "en_IL.UTF-8";
-      LC_NUMERIC = "en_IL.UTF-8";
-      LC_PAPER = "en_IL.UTF-8";
-      LC_TELEPHONE = "en_IL.UTF-8";
-      LC_TIME = "he_IL.UTF-8";
+      LC_ADDRESS = fstOpt;
+      LC_IDENTIFICATION = fstOpt;
+      LC_MEASUREMENT = fstOpt;
+      LC_MONETARY = sdnOpt;
+      LC_NAME = fstOpt;
+      LC_NUMERIC = fstOpt;
+      LC_PAPER = fstOpt;
+      LC_TELEPHONE = fstOpt;
+      LC_TIME = sdnOpt;
     };
 }

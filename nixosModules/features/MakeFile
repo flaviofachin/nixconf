@@ -1,0 +1,20 @@
+FILES_TO_ENCRYPT = ls ./.secrets
+
+
+.PHONY: secrets-encrpyt
+## encrypt secrets with SOPS and AGE
+secrets-encrpyt:
+	for file in $(FILES_TO_ENCRYPT); do \
+		echo "Encrypting: $$file"; \
+		sops --encrypt --age $(ASCII_SOPS_AGE_PUBLIC_KEY) --input-type binary --output-type binary $${file} > $${file}.enc; \
+	done
+
+
+.PHONY: secrets-decrypt
+## encrypt secrets with SOPS and AGE
+secrets-decrypt:
+	export SOPS_AGE_KEY_FILE=key.txt; \
+	for file in $(FILES_TO_ENCRYPT); do \
+		echo "Decrypting: $$file"; \
+		sops --decrypt --input-type binary --output-type binary $${file}.enc > $${file}; \
+	done

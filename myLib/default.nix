@@ -104,6 +104,7 @@ magicDirs = dirs:
     (myLib.filesIn ./${dir});
 );
 
+#The follow create the application without polluting permanently the store with all de dependency
 mkApp = name: dependOn:    # Args es:  bakup [restic sops nettools]
       let
         newApp = name: script: {
@@ -118,6 +119,17 @@ mkApp = name: dependOn:    # Args es:  bakup [restic sops nettools]
           ${pkgs.lib.fileContents ./scripts/${name}.sh}
         '';
 
+# The follow create the derivation con all the dependecy in the /nix/store
+mkApp2 = name: dependOn:
+     let
+        my-script = pkgs.lib.fileContents ./script/${name}.sh
+        my-buildInputs = with pkgs; [ cowsay ddate ];
+      in pkgs.symlinkJoin {
+        name = my-name;
+        paths = [ my-script ] ++ my-buildInputs;
+        buildInputs = [ pkgs.makeWrapper ];
+        postBuild = "wrapProgram $out/bin/${my-name} --prefix PATH : $out/bin";
+      };
 
   # ============================ Shell ============================= #
   forAllSystems = pkgs:

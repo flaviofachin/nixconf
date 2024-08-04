@@ -74,14 +74,13 @@
     with myLib; {
       nixosConfigurations = {
         # ===================== NixOS Configurations ===================== #
-
         laptop = mkSystem ./hosts/laptop/configuration.nix;
         work = mkSystem ./hosts/work/configuration.nix;
         vps = mkSystem ./hosts/vps/configuration.nix;
         liveiso = mkSystem ./hosts/liveiso/configuration.nix;
       };
 
-      homeConfigurations = {
+      homeConfigurations = with nix-users; {
         # ================ Maintained home configurations ================ #
 
         "shemuel@laptop" = mkHome "x86_64-linux" ./hosts/laptop/home.nix;
@@ -92,7 +91,7 @@
 
         "shemuel@osxvm" = mkHome "x86_64-darwin" ./hosts/osxvm/home.nix;
       };
-
+      nix-users = nixosConfiguration.config.users.users;
       homeManagerModules.default = ./homeManagerModules;
       nixosModules.default = ./nixosModules;
     };

@@ -11,9 +11,11 @@ in rec {
   pkgsFor = sys: inputs.nixpkgs.legacyPackages.${sys};
 
   # ========================== Buildables ========================== #
+  mkCommon = config:
+    import ./modules/commons {config; nix-users;};
 
   mkSystem = config:
-    inputs.nixpkgs.lib.nixosSystem {
+    mkCommon config // inputs.nixpkgs.lib.nixosSystem {
       specialArgs = {
         inherit inputs outputs myLib;
       };
